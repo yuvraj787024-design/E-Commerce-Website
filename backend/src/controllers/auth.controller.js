@@ -31,12 +31,13 @@ async function registerUser(req, res) {
         id: user._id,
     }, process.env.JWT_SECRET)
 
-    // res.cookie("token", token)
-    res.cookie("token", token, {
+res.cookie("token", token, {
     httpOnly: true,
-    secure: false,      // true only when using HTTPS
-    sameSite: "lax",
-    maxAge: 7 * 24 * 60 * 60 * 1000
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production"
+        ? "None"
+        : "Lax",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
 });
 
 await emailService.sendRegistrationEmail(
@@ -83,11 +84,13 @@ async function loginUser(req, res) {
     }, process.env.JWT_SECRET)
 
     // res.cookie("token", token)
-    res.cookie("token", token, {
+res.cookie("token", token, {
     httpOnly: true,
-    secure: false,      // true only when using HTTPS
-    sameSite: "lax",
-    maxAge: 7 * 24 * 60 * 60 * 1000
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production"
+        ? "None"
+        : "Lax",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
 });
 
     res.status(200).json({
@@ -101,7 +104,13 @@ async function loginUser(req, res) {
 }
 
 function logoutUser(req, res) {
-    res.clearCookie("token");
+    res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production"
+        ? "None"
+        : "Lax",
+});
     res.status(200).json({
         message: "User logged out successfully"
     });
@@ -138,11 +147,13 @@ async function registerFoodPartner(req, res) {
     }, process.env.JWT_SECRET)
 
     // res.cookie("token", token)
-    res.cookie("token", token, {
+res.cookie("token", token, {
     httpOnly: true,
-    secure: false,      // true only when using HTTPS
-    sameSite: "lax",
-    maxAge: 7 * 24 * 60 * 60 * 1000
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production"
+        ? "None"
+        : "Lax",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
 });
 
 await foodPartnerService.sendFoodPartnerRegistrationEmail(
@@ -192,11 +203,13 @@ async function loginFoodPartner(req, res) {
     }, process.env.JWT_SECRET)
 
     // res.cookie("token", token)
-    res.cookie("token", token, {
+res.cookie("token", token, {
     httpOnly: true,
-    secure: false,      // true only when using HTTPS
-    sameSite: "lax",
-    maxAge: 7 * 24 * 60 * 60 * 1000
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production"
+        ? "None"
+        : "Lax",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
 });
 
     res.status(200).json({
@@ -210,7 +223,13 @@ async function loginFoodPartner(req, res) {
 }
 
 function logoutFoodPartner(req, res) {
-    res.clearCookie("token");
+    res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production"
+        ? "None"
+        : "Lax",
+});
     res.status(200).json({
         message: "Food partner logged out successfully"
     });
