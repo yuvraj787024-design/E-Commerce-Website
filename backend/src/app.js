@@ -10,7 +10,7 @@ const cors = require('cors');
 const app = express();
 app.use(cors({
     origin: ["http://localhost:5173",
-        "https://e-commerce-website-0vzp.onrender.com"
+         "https://e-commerce-website-sigma-five.vercel.app"
     ],
 
     credentials: true
