@@ -9,7 +9,10 @@ const cors = require('cors');
 
 const app = express();
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173",
+        "https://e-commerce-website-0vzp.onrender.com"
+    ],
+
     credentials: true
 }));
 app.use(cookieParser());
